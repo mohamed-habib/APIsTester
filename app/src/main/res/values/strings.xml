@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">APIsTester</string>
+    <string name="navigate_icon">Navigate back</string>
+    <string name="history_screen_title">History</string>
+    <string name="cached_responses_requests">Cached Requests/Responses</string>
+    <string name="attachment_required">No multipart attached, Please attach a multipart file first.</string>
+    <string name="get">GET</string>
+    <string name="post">POST</string>
+    <string name="multipart">MULTIPART</string>
+    <string name="failure">Failure</string>
+    <string name="success">Success</string>
+    <string name="request_type">Request Type</string>
+    <string name="response_status">Response Status</string>
+    <string name="attach_multipart">Attach Multipart</string>
+    <string name="no_intenet_connection">No intenet connection!</string>
+    <string name="open_file">Open File</string>
+    <string name="history">History</string>
+</resources>
