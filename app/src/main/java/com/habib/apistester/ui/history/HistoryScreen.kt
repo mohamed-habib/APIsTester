@@ -219,7 +219,7 @@ fun HistoryScreen(
 					)
 					is FlowStatus.Success -> {
 						val uiModel =
-							(apiCalls as FlowStatus.Success).result as List<*>
+							(apiCalls.value as FlowStatus.Success).result as List<*>
 						//using filter here to avoid the unchecked cast warning,
 						//all the values should be of [ApiUiModel] anyways.
 						CachedApiCallsList(uiModel.filterIsInstance<ApiUiModel>())
