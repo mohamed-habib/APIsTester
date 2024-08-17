@@ -43,10 +43,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.habib.apistester.ApiUiModel
 import com.habib.apistester.ErrorApiUiModel
 import com.habib.apistester.R
 import com.habib.apistester.SuccessApiUiModel
+import com.habib.apistester.ui.ViewModelFactory
 import com.habib.apistester.ui.composables.Header
 import com.habib.apistester.ui.history.HistoryDisplayOption.ALL
 import com.habib.apistester.ui.history.HistoryDisplayOption.FILTERED_BY_GET
@@ -184,6 +186,28 @@ fun ApiItemText(label: String, value: String) {
 
 @Composable
 fun HistoryScreen(
+	viewModel: HistoryViewModel = viewModel(
+		factory = ViewModelFactory()
+	),
+	onBackPressed: () -> Unit,
+) {
+	val selectedDisplayOption = remember { viewModel.selectedDisplayOption }
+	val apiCalls = remember { viewModel.apiCallsState }
+	HistoryScreen(
+		selectedDisplayOption = selectedDisplayOption,
+		apiCalls = apiCalls,
+		getAllCachedApiCalls = { viewModel.getAllCachedApiCalls() },
+		getApiCallsSortedByExecutionTime = { viewModel.getApiCallsSortedByExecutionTime() },
+		getGetApiCalls = { viewModel.getGetApiCalls() },
+		getPostApiCalls = { viewModel.getPostApiCalls() },
+		getSuccessApiCalls = { viewModel.getSuccessApiCalls() },
+		getFailedApiCalls = { viewModel.getFailedApiCalls() },
+		onBackPressed = onBackPressed
+	)
+}
+
+@Composable
+internal fun HistoryScreen(
 	selectedDisplayOption: MutableState<HistoryDisplayOption>,
 	apiCalls: MutableState<FlowStatus>,
 	getAllCachedApiCalls: () -> Unit,
@@ -244,7 +268,7 @@ fun DisplayOptionsDropdown(onOptionSelected: (HistoryDisplayOption) -> Unit) {
 				.background(MaterialTheme.colorScheme.primary),
 		) {
 			Row(
-				verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+				verticalAlignment = Alignment.CenterVertically
 			) {
 				Text(
 					text = selectedOption.label,

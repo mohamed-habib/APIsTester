@@ -6,16 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.habib.apistester.SuccessApiUiModel
 import com.habib.apistester.ui.composables.DisplaySuccess
 import com.habib.apistester.ui.history.HistoryScreen
-import com.habib.apistester.ui.history.HistoryViewModel
 import com.habib.apistester.ui.home.HomeScreen
 import com.habib.apistester.ui.theme.APIsTesterTheme
 
@@ -44,24 +41,7 @@ fun MainNavigation() {
 			})
 		}
 		composable(route = "history") {
-			val viewModel: HistoryViewModel = viewModel(
-				factory = ViewModelFactory()
-			)
-			val selectedDisplayOption = remember { viewModel.selectedDisplayOption }
-			val apiCalls = remember { viewModel.apiCallsState }
-
-			HistoryScreen(
-				selectedDisplayOption = selectedDisplayOption,
-				apiCalls = apiCalls,
-				getAllCachedApiCalls = { viewModel.getAllCachedApiCalls() },
-				getApiCallsSortedByExecutionTime = { viewModel.getApiCallsSortedByExecutionTime() },
-				getGetApiCalls = { viewModel.getGetApiCalls() },
-				getPostApiCalls = { viewModel.getPostApiCalls() },
-				getSuccessApiCalls = { viewModel.getSuccessApiCalls() },
-				getFailedApiCalls = { viewModel.getFailedApiCalls() },
-				onBackPressed = {
-					navController.popBackStack()
-				})
+			HistoryScreen { navController.popBackStack() }
 		}
 	}
 }
